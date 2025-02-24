@@ -1,0 +1,8 @@
+Table: Tv App
+refreshtimeinsec
+account activation code
+--------------------------
+Extra Table to Add for
+istrending
+isnewrelease
+isbypasslogin
