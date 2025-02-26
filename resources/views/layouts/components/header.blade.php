@@ -617,17 +617,17 @@
                                 height="32" class="rounded-circle">
                         </div>
                         <div class="d-sm-block d-none">
-                            <p class="fw-semibold mb-0 lh-1">Json Taylor</p>
-                            <span class="op-7 fw-normal d-block fs-11">Web Designer</span>
+                            <p class="fw-semibold mb-0 lh-1">{{ auth()->user()->name }}</p>
+                            {{-- <span class="op-7 fw-normal d-block fs-11">Web Designer</span> --}}
                         </div>
                     </div>
                 </a>
                 <!-- End::header-link|dropdown-toggle -->
                 <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
-                    aria-labelledby="mainHeaderProfile">
-                    <li><a class="dropdown-item d-flex" href="{{ url('profile') }}"><i
-                                class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                    <li><a class="dropdown-item d-flex" href="{{ url('mail') }}"><i
+                    aria-labelledby="mainHeaderProfile" id="mainHeaderProfileul">
+                    <li><a class="dropdown-item d-flex" href="{{ url('userprofile') }}"><i
+                                class="ti ti-user-circle fs-18 me-2 op-7"></i>{{ __('Profile') }}</a></li>
+                    {{-- <li><a class="dropdown-item d-flex" href="{{ url('mail') }}"><i
                                 class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox <span
                                 class="badge bg-success-transparent ms-auto">25</span></a></li>
                     <li><a class="dropdown-item d-flex border-block-end" href="{{ url('todo-list') }}"><i
@@ -637,13 +637,13 @@
                     <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
                                 class="ti ti-wallet fs-18 me-2 op-7"></i>Bal: $7,12,950</a></li>
                     <li><a class="dropdown-item d-flex" href="{{ url('chat') }}"><i
-                                class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
+                                class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li> --}}
 
                     <li>
                         <a class="dropdown-item d-flex" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            <i class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a>
+                            <i class="ti ti-logout fs-18 me-2 op-7"></i>{{ __('Log Out') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
@@ -669,28 +669,23 @@
     </div>
     <!-- End::main-header-container -->
 
-    {{-- <script>
-        $('#appChange').change(function() {
-            let value = $('#appChange').val();
-            let formData = new FormData();
-            formData.append('appCode', value);
-            $.ajax({
-                url: 'setappconfig',
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
-                },
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(data) {
-                    location.reload();
-                }
-
-            });
-        })
-    </script> --}}
+    <script>
+        $('#mainHeaderProfile').click(function() {
+            if ($('#mainHeaderProfile').hasClass("show")) {
+                $('#mainHeaderProfile').removeClass('show');
+                $('#mainHeaderProfile').attr("aria-expanded", "false");
+                $('#mainHeaderProfileul').removeClass('show');
+                $('#mainHeaderProfileul').removeAttr('style');
+            } else {
+                $('#mainHeaderProfile').addClass('show');
+                $('#mainHeaderProfile').attr("aria-expanded", "true");
+                $('#mainHeaderProfileul').addClass('show');
+                $('#mainHeaderProfileul').css('position', 'absolute');
+                $('#mainHeaderProfileul').css('inset', '0px 0px auto auto');
+                $('#mainHeaderProfileul').css('margin', '0px');
+                $('#mainHeaderProfileul').css('transform', 'translate(-61px, 61px)');
+            }
+        });
+    </script>
 
 </header>

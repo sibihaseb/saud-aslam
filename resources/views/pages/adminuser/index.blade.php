@@ -237,7 +237,7 @@
 
                 if ($('#action').val() == 'Edit') {
                     var dataId = $('#hidden_id').val();
-                    action_url = "{{ url('adminuser') }}" + "/" + dataId;
+                    action_url = "{{ url('admin/adminuser') }}" + "/" + dataId;
                     formdata.append("_method", "PATCH");
                     $.ajax({
                         url: action_url,
@@ -332,7 +332,7 @@
 
             $('#ok_button').click(function() {
                 $.ajax({
-                    url: "adminuser/" + user_id,
+                    url: "admin/adminuser/" + user_id,
                     type: "DELETE",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')

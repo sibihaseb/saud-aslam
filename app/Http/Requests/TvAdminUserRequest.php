@@ -24,17 +24,9 @@ class TvAdminUserRequest extends FormRequest
 
         $rules = [
             'name'            => 'required|string',
-            // 'phone'          => 'nullable|string',
-            // 'status'          => 'required',
-            // 'account_type'          => 'required',
-            // 'app_code' => 'nullable',
-            // 'role' => 'nullable',
-            // 'day' => 'nullable',
         ];
 
         if ($this->route()->getName() === 'adminuser.update') {
-            // $rules['code'] = 'nullable';
-            // $rules['oldpassword'] = 'required|string';
             $rules['email'] = 'required|email';
         }
         if ($this->route()->getName() === 'adminuser.store') {

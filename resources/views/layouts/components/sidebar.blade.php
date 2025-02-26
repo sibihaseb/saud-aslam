@@ -34,6 +34,26 @@
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
+                <li class="slide">
+                    <a href="{{ url('admin/adminuser') }}" class="side-menu__item">
+                        <i class="bx bx-layer side-menu__icon"></i>
+                        <span class="side-menu__label">{{ __('User Management') }}<span
+                                class="badge bg-warning-transparent ms-2"></span></span>
+                    </a>
+                </li>
+                <!-- End::slide -->
+
+                <!-- Start::slide -->
+                <li class="slide">
+                    <a href="{{ url('admin/projects') }}" class="side-menu__item">
+                        <i class="bx bx-layer side-menu__icon"></i>
+                        <span class="side-menu__label">{{ __('Projects') }}<span
+                                class="badge bg-warning-transparent ms-2"></span></span>
+                    </a>
+                </li>
+                <!-- End::slide -->
+
+                <!-- Start::slide -->
                 <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>

@@ -2,19 +2,17 @@
 
 namespace App\DataTables;
 
-use App\Models\Rating;
-use App\Models\TvRating;
-use App\Models\TemporaryAppCode;
+use App\Models\Project;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class TvRatingDataTable extends DataTable
+class ProjectDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,20 +21,24 @@ class TvRatingDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
-            ->addColumn('action', 'tvrating.action')
-            ->setRowId('id');
+        return datatables()
+            ->eloquent($query)
+            ->addColumn('action', function ($data) {
+                $button = null;
+                $button = '<i id="' . $data->id . '" class="edit ri-pencil-line text-info m-2"></i>';
+                $button .= '<i id="' . $data->id . '" class="delete ri-delete-bin-line text-danger m-2"></i>';
+                return $button;
+            })
+            ->addColumn('Project_ended_date', fn($record) => $record->ended_on->diffForHumans())
+            ->escapeColumns([]);
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(TvRating $model): QueryBuilder
+    public function query(Project $model): QueryBuilder
     {
-        // return $model->newQuery();
-        $currentCode = TemporaryAppCode::first();
-        $data = $model::where('app_code', $currentCode->appCode)->select();
-        return $this->applyScopes($data);
+        return $model->newQuery();
     }
 
     /**
@@ -45,7 +47,7 @@ class TvRatingDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('tvrating-table')
+            ->setTableId('project-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -67,15 +69,16 @@ class TvRatingDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('name'),
+            Column::make('description'),
+            Column::make('images'),
+            Column::make('Project_ended_date'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('title'),
-            Column::make('status'),
-            Column::make('order'),
         ];
     }
 
@@ -84,6 +87,6 @@ class TvRatingDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'TvRating_' . date('YmdHis');
+        return 'Project_' . date('YmdHis');
     }
 }

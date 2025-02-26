@@ -18,13 +18,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-//Google
-Route::get('/login/google', [SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('/login/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
-//Facebook
-Route::get('/login/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('/login/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
-// //Github
-// Route::get('/login/github', [, 'redirectToGithub'])->name('login.github');
-// Route::get('/login/github/callback', [, 'handleGithubCallback']);

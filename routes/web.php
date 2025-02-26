@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\IndexController;
+use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\Dashboard\TvAdminUserController;
 
 /*
@@ -17,17 +18,11 @@ use App\Http\Controllers\Dashboard\TvAdminUserController;
 
 Route::get('/', [IndexController::class, 'index']);
 
-Route::group(['middleware' => ['auth']], function () {
-
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return view('pages.welcome');
     });
     Route::resource('adminuser', TvAdminUserController::class);
-    // Route::post('setappconfig', [IndexController::class, 'appCodeSet']);
-    // Route::resource('category', CategoryContoller::class);
-    // Route::resource('genre', GenreContoller::class);
-    // Route::resource('streamquality', TvStreamQualityContoller::class);
-    // Route::resource('rating', TvRatingContoller::class);
-    // Route::resource('actor', TvActorContoller::class);
-    // Route::resource('contentadvisory', TvContentAdvisoryContoller::class);
+    Route::resource('projects', ProjectController::class);
+    Route::post('projectfile/{id}', [ProjectController::class, 'uploadfile']);
 });

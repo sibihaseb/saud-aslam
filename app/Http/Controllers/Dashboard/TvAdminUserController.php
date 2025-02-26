@@ -22,17 +22,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TvAdminUserController extends Controller
 {
-    protected $currentApp;
-
-    public function __construct()
-    {
-        // Ensure the user is authenticated
-        $this->middleware(function ($request, $next) {
-            $userCode = auth()->user()->code;
-            // $this->currentApp = TemporaryAppCode::where('user_code', $userCode)->first();
-            return $next($request);
-        });
-    }
     /**
      * Display a listing of the resource.
      */
@@ -54,7 +43,6 @@ class TvAdminUserController extends Controller
      */
     public function store(TvAdminUserRequest $request)
     {
-        $currentApp = $this->currentApp;
         $validatedData = $request->validated();
         // $code = Str::random(32);
         // $validatedData['code'] = $code;
@@ -94,13 +82,9 @@ class TvAdminUserController extends Controller
      */
     public function update(TvAdminUserRequest $request, User $adminuser)
     {
-
-        $currentApp = $this->currentApp;
         $validatedData = $request->validated();
         if (isset($validatedData['password'])) {
             $validatedData['password'] = Hash::make($validatedData['password']);
-        } else {
-            $validatedData['password'] = $validatedData['oldpassword'];
         }
 
         $adminuser->update($validatedData);
