@@ -3,14 +3,15 @@
 namespace App\DataTables;
 
 use App\Models\Project;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class ProjectDataTable extends DataTable
 {
@@ -25,8 +26,26 @@ class ProjectDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function ($data) {
                 $button = null;
-                $button = '<i id="' . $data->id . '" class="edit ri-pencil-line text-info m-2"></i>';
-                $button .= '<i id="' . $data->id . '" class="delete ri-delete-bin-line text-danger m-2"></i>';
+                $button = '<a href="' . route('projects.edit', $data->id) . '" role="button" class="edit ri-pencil-line text-info m-2"></a>';
+                $button .= '<i id="' . $data->id . '" class="deleteRecord ri-delete-bin-line text-danger m-2" role="button"></i>';
+                return $button;
+            })
+            ->addColumn('images', function ($data) {
+                $button = null;
+                $allImages = explode(',', $data->images);
+                if ($allImages && count($allImages) > 1) {
+                    $button .= '<div class="gallery">';
+                    foreach ($allImages as $key => $image) {
+                        $url = asset('storage/' . $image);
+                        $button .= '<img src="' . $url . '" alt="' . $key . '" />';
+                    }
+                    $button .= '</div>';
+                } elseif ($allImages[0]) {
+                    $url = asset('storage/' . $allImages[0]);
+                    $button .= '<img src="' . $url . '" />';
+                } else {
+                    $button = '';
+                }
                 return $button;
             })
             ->addColumn('Project_ended_date', fn($record) => $record->ended_on->diffForHumans())
@@ -72,7 +91,7 @@ class ProjectDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('description'),
-            Column::make('images'),
+            Column::make('images')->width("200px"),
             Column::make('Project_ended_date'),
             Column::computed('action')
                 ->exportable(false)

@@ -11,6 +11,30 @@
         Dropzone.autoDiscover = false;
     </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .gallery {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery img {
+            width: 20%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            transition: all ease-out 0.5s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .gallery img:hover {
+            width: 50%;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -32,6 +56,9 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('projects.index') }}" class="btn btn-success m-4">{{ __('All Projects') }}</a>
+                        </div>
                         <span id="form_result"></span>
                         <form id="projectCreate" action="{{ route('projects.store') }}" method="POST"
                             enctype="multipart/form-data" class="mb-4">
@@ -40,15 +67,16 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <label for="text" class="form-label">{{ __('Name') }}</label>
-                                        <input type="text" class="form-control" name="name" aria-describedby="text"
-                                            value="">
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            aria-describedby="text" value="{{ $project->name }}">
                                         @error('name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="text" class="form-label">{{ __('Project Ended On') }}</label>
-                                        <input type="datetime-local" id="ended_on" name="ended_on" class="form-control" />
+                                        <input type="datetime-local" id="ended_on" name="ended_on" class="form-control"
+                                            value="{{ $project->ended_on }}" />
                                         @error('ended_on')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -57,7 +85,7 @@
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
                                         <label for="text" class="form-label">{{ __('Description') }}</label>
-                                        <div id="descriptioneditor"></div>
+                                        <div id="descriptioneditor">{!! $project->description !!}</div>
                                         @error('description')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -71,9 +99,22 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @if ($allimages && count($allimages) > 1)
+                                    <div class="gallery">
+                                        @foreach ($allimages as $key => $image)
+                                            <img src="{{ Storage::url($image) }}" alt="{{ $key }}" />
+                                        @endforeach
+                                    </div>
+                                @elseif ($allimages[0])
+                                    <img src="{{ Storage::url($allimages[0]) }}" width="100%" height="50%" />
+                                @else
+                                @endif
+                            </div>
+                        </div>
                         <div class="images-upload">
                             <div class="project-dropzone dropzone" style="margin-top: 2%"></div>
-                            <a href="{{ route('projects.index') }}" class="btn btn-success">{{ __('All Projects') }}</a>
                         </div>
 
 
@@ -95,19 +136,27 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     @vite('resources/assets/js/prism-custom.js')
     <script>
-        var createdProjectId = 0;
+        var createdProjectId = {!! $project->id !!};
 
         const descriptionQuill = new Quill('#descriptioneditor', {
             theme: 'snow'
         });
-
-        $('.images-upload').hide();
+        const imageDropzone = new Dropzone(".project-dropzone", {
+            url: "/admin/projectfile/" + createdProjectId,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector(
+                    'meta[name="csrf-token"]').getAttribute('content')
+            },
+            acceptedFiles: 'image/*'
+        });
+        // $('.images-upload').hide();
         $('#projectCreate').on('submit', function(event) {
             event.preventDefault();
             var action_url = '';
             var formdata = new FormData(this);
-            formdata.append('description', descriptionQuill.getSemanticHTML())
-            action_url = "{{ route('projects.store') }}";
+            formdata.append('description', descriptionQuill.getSemanticHTML());
+            formdata.append("_method", "PATCH");
+            action_url = "{{ url('admin/projects') }}" + "/" + createdProjectId;;
             $.ajax({
                 url: action_url,
                 method: "POST",
@@ -121,25 +170,14 @@
                     var html = '';
                     if (data) {
                         html =
-                            '<div class="alert alert-success">Created Successful, Upload Images Now</div>';
+                            '<div class="alert alert-success">Updated Successfull</div>';
                     }
-                    createdProjectId = data.id;
-                    $('#projectCreate')[0].reset();
+                    // $('#projectCreate')[0].reset();
+                    $('#name').val(data.name);
+                    $('#ended_on').val(data.ended_on);
+                    console.log(data.description);
+                    descriptionQuill.setText(data.description)
                     $('#form_result').html(html);
-                    console.log(createdProjectId);
-                    if (createdProjectId !== 0 || createdProjectId !== '0') {
-                        console.log('asdasd', createdProjectId);
-                        const imageDropzone = new Dropzone(".project-dropzone", {
-                            url: "/admin/projectfile/" + createdProjectId,
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            acceptedFiles: 'image/*'
-                        });
-                        $('.images-upload').show();
-                    }
-                    $('#projectCreate').hide();
                 },
                 error: function(data) {
                     console.log('data', data)

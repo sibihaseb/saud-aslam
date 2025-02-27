@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Project;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\DataTables\ProjectDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Http\Resources\ProjectResource;
-use App\Models\Project;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -33,6 +34,7 @@ class ProjectController extends Controller
     public function store(ProjectRequest $request)
     {
         $input = $request->validated();
+
         $project = Project::create($input);
 
         return $this->successResponse(new ProjectResource($project), 200);
@@ -49,17 +51,22 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        $allimages = explode(',', $project->images);
+        return view('pages.projects.edit', compact('project', 'allimages'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectRequest $request, Project $project)
     {
-        //
+        $input = $request->validated();
+
+        $project->update($input);
+
+        return $this->successResponse(new ProjectResource($project), 200);
     }
 
     /**
@@ -72,6 +79,28 @@ class ProjectController extends Controller
 
     public function uploadfile(Request $request, string $id)
     {
-        // dd($request->all(), $id);
+        $project = Project::findOrFail($id);
+        $imagesOld = $project->images;
+
+        //renaming files for projects only
+        $filename = $project->name . '_' . Carbon::now()->format('Y-m-d_H-i-s') . '.' . $request->file('file')->getClientOriginalExtension();
+        $filename = preg_replace('/[^A-Za-z0-9.]/', '',  $filename);
+        $filename = str_replace(' ', '', $filename);
+        $imagepath = $request->file('file')->storeAs('images/projects', $filename, 'public');
+
+        //if old files are there then add the new one to the db
+
+        if ($imagesOld) {
+            $imagesNew = explode(',', $imagesOld);
+            $imagesNew[count($imagesNew)] = $imagepath;
+            $imagesOld = implode(',', $imagesNew);
+        } else {
+            $imagesOld = $imagepath;
+        }
+
+        //update the database
+        $project->update(['images' => $imagesOld]);
+
+        return $this->successMessageResponse('Image Uploaded Successful', 200);
     }
 }

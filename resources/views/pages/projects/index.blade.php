@@ -4,6 +4,30 @@
     <!-- PRISM CSS -->
     <link rel="stylesheet" href="{{ asset('build/assets/libs/prismjs/themes/prism-coy.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+        .gallery {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery img {
+            width: 20%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #fff;
+            transition: all ease-out 0.5s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .gallery img:hover {
+            width: 50%;
+        }
+    </style>
 @endsection
 
 @section('content')
