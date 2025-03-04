@@ -17,7 +17,7 @@ use App\Http\Controllers\Dashboard\TvAdminUserController;
 */
 
 Route::get('/', [IndexController::class, 'index']);
-
+Route::get('/landing', [IndexController::class, 'landing']);
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return view('pages.welcome');

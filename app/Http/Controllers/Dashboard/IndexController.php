@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use App\Models\TemporaryAppCode;
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 
 class IndexController extends Controller
 {
@@ -17,12 +18,11 @@ class IndexController extends Controller
         }
     }
 
-    // public function appCodeSet(Request $request)
-    // {
-    //     TemporaryAppCode::updateOrCreate([
-    //         'id' => 1
-    //     ], ['appCode' => $request->appCode]);
+    public function landing()
+    {
+        $project = Project::findOrfail(1);
+        $allimages = explode(',', $project->images);
 
-    //     return response()->json(['success' => "App Changed"]);
-    // }
+        return view('welcome', compact('allimages'));
+    }
 }
