@@ -103,4 +103,18 @@ class ProjectController extends Controller
 
         return $this->successMessageResponse('Image Uploaded Successful', 200);
     }
+
+    public function deleteImage(Request $request)
+    {
+        $project = Project::findOrFail($request->project_id);
+        $imagesOld = $project->images;
+        $imagesNew = explode(',', $imagesOld);
+        unset($imagesNew[$request->key]);
+        $imagesNew = implode(',', $imagesNew);
+
+        //update the database
+        $project->update(['images' => $imagesNew]);
+
+        return $this->successMessageResponse('Image Deleted Successful', 200);
+    }
 }

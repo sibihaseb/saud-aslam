@@ -14,15 +14,26 @@ class IndexController extends Controller
         if (!auth()->user()) {
             return view('pages.auth.signin-cover');
         } else {
-            return redirect('/home');
+            return redirect('/admin/home');
         }
     }
 
     public function landing()
     {
-        $project = Project::findOrfail(1);
+        $projects = Project::get();
+        $projects = $projects->map(function ($project) {
+            $images = explode(',', $project->images);
+            $project->images = $images[0];
+            return $project;
+        });
+        return view('welcome', compact('projects'));
+    }
+
+    public function project($id)
+    {
+        $project = Project::findOrfail($id);
         $allimages = explode(',', $project->images);
 
-        return view('welcome', compact('allimages'));
+        return view('project', compact('allimages', 'project'));
     }
 }

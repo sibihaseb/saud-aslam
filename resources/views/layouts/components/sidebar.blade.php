@@ -2,7 +2,7 @@
 
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
-        <a href="{{ url('index') }}" class="header-logo">
+        <a href="{{ url('/') }}" class="header-logo">
             <img src="{{ asset('build/assets/images/brand-logos/desktop-logo.png') }}" alt="logo" class="desktop-logo">
             <img src="{{ asset('build/assets/images/brand-logos/toggle-logo.png') }}" alt="logo" class="toggle-logo">
             <img src="{{ asset('build/assets/images/brand-logos/desktop-dark.png') }}" alt="logo"
@@ -54,7 +54,7 @@
                 <!-- End::slide -->
 
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">ANALATICS<span
@@ -73,10 +73,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Analytics Report</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MEDIA LIBRARY<span
@@ -101,10 +101,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Fast Channel</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label"> UPLOAD MEDIA<span
@@ -129,10 +129,10 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MEDIA DETAILS<span
@@ -171,10 +171,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Audio Langauge</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">CHANNELS<span
@@ -195,10 +195,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Manage Schedule</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">APPERANCE<span
@@ -241,10 +241,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Manage Assets</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">APPS<span
@@ -259,10 +259,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">View All Apps</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">ADMIN USERS<span
@@ -277,10 +277,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">View All Admin Users</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MONETIZATION<span
@@ -308,10 +308,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Banner Ads</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MODULES<span
@@ -388,10 +388,10 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MEDIA LICENSING<span
@@ -406,10 +406,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Browse Content</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">USERS<span
@@ -428,10 +428,10 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">MARKETING<span
@@ -456,10 +456,10 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">BILLING<span
@@ -474,9 +474,9 @@
                             <a href="{{ url('index') }}" class="side-menu__item">My Billings</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide --> <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">HELP<span
@@ -494,10 +494,10 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Knowledge Base</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
                 <!-- Start::slide -->
-                <li class="slide has-sub">
+                {{-- <li class="slide has-sub">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="bx bx-home side-menu__icon"></i>
                         <span class="side-menu__label">PROFILE<span
@@ -512,7 +512,7 @@
                             <a href="{{ url('index') }}" class="side-menu__item">Profile Settings</a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!-- End::slide -->
 
             </ul>

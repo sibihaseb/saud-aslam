@@ -16,13 +16,16 @@ use App\Http\Controllers\Dashboard\TvAdminUserController;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/landing', [IndexController::class, 'landing']);
+Route::get('/', [IndexController::class, 'landing']);
+Route::get('landing', [IndexController::class, 'landing']);
+Route::get('project/{id}', [IndexController::class, 'project'])->name('project.display');
+
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         return view('pages.welcome');
     });
     Route::resource('adminuser', TvAdminUserController::class);
     Route::resource('projects', ProjectController::class);
+    Route::post('projectimage', [ProjectController::class, 'deleteImage'])->name('image.delete');
     Route::post('projectfile/{id}', [ProjectController::class, 'uploadfile']);
 });

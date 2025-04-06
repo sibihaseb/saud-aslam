@@ -20,19 +20,46 @@
             align-items: center;
         }
 
-        .gallery img {
+        .image-wrapper {
+            position: relative;
             width: 20%;
+            height: 100%;
+            margin: 0 5px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .image-wrapper img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 10px;
             border: 2px solid #fff;
             transition: all ease-out 0.5s;
             cursor: pointer;
-            overflow: hidden;
         }
 
-        .gallery img:hover {
-            width: 50%;
+        .image-wrapper img:hover {
+            width: 150%;
+            /* Image zoom effect */
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 0, 0, 0.8);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 25px;
+            text-align: center;
+            padding: 0;
+            z-index: 2;
         }
     </style>
 @endsection
@@ -51,14 +78,11 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title fw-semibold mb-4">
-                        {{ __('Create Project') }}
+                        {{ __('Edit Project') }}
                     </h5>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-end">
-                            <a href="{{ route('projects.index') }}" class="btn btn-success m-4">{{ __('All Projects') }}</a>
-                        </div>
                         <span id="form_result"></span>
                         <form id="projectCreate" action="{{ route('projects.store') }}" method="POST"
                             enctype="multipart/form-data" class="mb-4">
@@ -90,31 +114,46 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="images-upload">
+                                            <div class="project-dropzone dropzone" style="margin-top: 2%"></div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12" style="margin-top:7%">
                                         <div class="form-group" align="right">
                                             <input type="submit" name="action_button" id="action_button"
-                                                class="btn btn-warning" value="{{ __('Add') }}" />
+                                                class="btn btn-warning" value="{{ __('Update') }}" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 @if ($allimages && count($allimages) > 1)
                                     <div class="gallery">
                                         @foreach ($allimages as $key => $image)
-                                            <img src="{{ Storage::url($image) }}" alt="{{ $key }}" />
+                                            <div class="image-wrapper">
+                                                <img src="{{ Storage::url($image) }}" alt="{{ $key }}" />
+                                                <button type="button" onclick="deleteImage('{{ $key }}')"
+                                                    class="delete-btn">
+                                                    &times;
+                                                </button>
+                                            </div>
                                         @endforeach
                                     </div>
-                                @elseif ($allimages[0])
-                                    <img src="{{ Storage::url($allimages[0]) }}" width="100%" height="50%" />
+                                @elseif (!empty($allimages[0]))
+                                    <div class="single-image-wrapper" style="position: relative;">
+                                        <img src="{{ Storage::url($allimages[0]) }}" width="100%" height="50%" />
+                                        <button type="button" onclick="deleteImage(0)" class="delete-btn">
+                                            &times;
+                                        </button>
+                                    </div>
                                 @else
+                                    <!-- No images -->
                                 @endif
                             </div>
-                        </div>
-                        <div class="images-upload">
-                            <div class="project-dropzone dropzone" style="margin-top: 2%"></div>
                         </div>
 
 
@@ -156,7 +195,7 @@
             var formdata = new FormData(this);
             formdata.append('description', descriptionQuill.getSemanticHTML());
             formdata.append("_method", "PATCH");
-            action_url = "{{ url('admin/projects') }}" + "/" + createdProjectId;;
+            action_url = "{{ url('admin/projects') }}" + "/" + createdProjectId;
             $.ajax({
                 url: action_url,
                 method: "POST",
@@ -191,5 +230,30 @@
                 }
             });
         });
+
+        function deleteImage(key) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                $.ajax({
+                    url: '{{ route('image.delete') }}', // Your Laravel route
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector(
+                            'meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    data: {
+                        project_id: {{ $project->id }},
+                        key: key
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                        // Optionally: remove the image from the DOM
+                        $('button[onclick="deleteImage(\'' + key + '\')"]').closest('.image-wrapper').remove();
+                    },
+                    error: function(xhr) {
+                        alert('Something went wrong while deleting!');
+                    }
+                });
+            }
+        }
     </script>
 @endsection

@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.row {
+    width: 100%;
+}
+
+.album-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.album-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.album-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect for Image */
+.album-link:hover .album-image {
+    transform: scale(1.05);
+}
+
+/* Overlay */
+.album-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 197, 24, 0.8);
+    /* Yellow with opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Title Style */
+.album-title {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.album-link:hover .album-inner {
+    opacity: 1;
+}
+
+.album-link:hover .album-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 0;
+    background-color: rgba(0, 0, 0, 1);
+    transition: background-color 0.5s, padding 1s;
+    z-index: 1;
+}
+
+header.sticky {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 0;
+}
+
+.content {
+    margin-top: 100px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 20px;
+    text-align: center;
+}
+
+nav a:link,
+nav a:visited {
+    color: #fff;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 5px;
+}
+
+nav a:hover,
+nav a:active {
+    color: #aaa;
+    transform: scale(1.1);
+}
