@@ -20,7 +20,7 @@ class IndexController extends Controller
 
     public function landing()
     {
-        $projects = Project::get();
+        $projects = Project::latest()->get();
         $projects = $projects->map(function ($project) {
             $images = explode(',', $project->images);
             $project->images = $images[0];

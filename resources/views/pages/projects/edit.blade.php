@@ -215,7 +215,7 @@
                     $('#name').val(data.name);
                     $('#ended_on').val(data.ended_on);
                     console.log(data.description);
-                    descriptionQuill.setText(data.description)
+                    // descriptionQuill.setText(data.description)
                     $('#form_result').html(html);
                 },
                 error: function(data) {
