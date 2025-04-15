@@ -1,3 +1,4 @@
+/* Reset margins and paddings */
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +7,107 @@
 
 body {
     overflow-x: hidden;
+    font-family: Arial, sans-serif;
 }
 
-.row {
+/* Header Layout */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: #23c1ff;
+    position: relative;
+    z-index: 50;
+}
+
+header .text-2xl {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Hamburger Icon */
+#hamburger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* same as space-x-2 */
+}
+
+.bar1, .bar2, .bar3 {
     width: 100%;
+    height: 4px;
+    background-color:#23c1ff;
+    transition: 0.3s ease;
 }
 
+#hamburger.open .bar1 {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburger.open .bar2 {
+    opacity: 0;
+}
+
+#hamburger.open .bar3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Sidebar styles for the header */
+#sidebar {
+    display: none; /* Hide by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #23c1ff;
+    box-shadow:  #23c1ff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 40;
+}
+
+#sidebar.open {
+    display: flex;
+}
+
+#sidebar a {
+    padding: 15px;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#sidebar a:hover {
+    color: #23c1ff;
+    background-color: white;
+}
+
+/* Make the sidebar work on mobile */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none; /* Hide sidebar by default */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #23c1ff;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #sidebar.open {
+        display: flex;
+    }
+}
+
+/* Album and Hover Effects */
 .album-item {
     position: relative;
     overflow: hidden;
@@ -31,7 +127,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* Hover Effect for Image */
 .album-link:hover .album-image {
     transform: scale(1.05);
 }
@@ -43,8 +138,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(35, 193, 255, 0.8);
-    /* Yellow with opacity */
+    background: rgba(35, 193, 255, 0.8); /* Custom overlay color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,7 +156,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Hover Effect */
+/* Hover Effect for Overlay */
 .album-link:hover .album-inner {
     opacity: 1;
 }
@@ -72,29 +166,7 @@ body {
     transform: translateY(0);
 }
 
-#sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-}
-
-#sidebar.open {
-    transform: translateX(0);
-}
-
-/* Rotate the hamburger icon when open */
-#hamburger.open .bar1 {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-#hamburger.open .bar2 {
-    opacity: 0;
-}
-
-#hamburger.open .bar3 {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Style for the white bar */
+/* Sidebar and Menu Styling */
 .white-bar {
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -105,15 +177,11 @@ body {
     color: #23c1ff;
 }
 
-#hamburger:hover span {
-    color: #23c1ff;
-    /* or any color you want */
-}
-
-#hamburger:hover svg {
+#hamburger:hover span, #hamburger:hover svg {
     color: #23c1ff;
 }
 
+/* Sidebar Background */
 .sidebar-bg {
     background-color: #23c1ff;
 }
