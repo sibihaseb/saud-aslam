@@ -16,7 +16,7 @@
             <!-- Left Side: Images -->
             <div class="w-full space-y-6">
                 @foreach ($allimages as $index => $image)
-                    <img src="{{ asset('storage/' . $image) }}" alt="Concept Art"
+                    <img src="{{ asset('storage/images/projects/' . $image) }}" alt="Concept Art"
                         class="w-full rounded-lg shadow cursor-pointer">
                 @endforeach
             </div>

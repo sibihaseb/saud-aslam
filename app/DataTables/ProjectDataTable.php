@@ -31,20 +31,18 @@ class ProjectDataTable extends DataTable
                 return $button;
             })
             ->addColumn('images', function ($data) {
-                $button = null;
-                $allImages = explode(',', $data->images);
-                if ($allImages && count($allImages) > 1) {
+                $button = '';
+                if (!empty($data->images)) {
+                    $allImages = explode(',', $data->images);
                     $button .= '<div class="gallery">';
-                    foreach ($allImages as $key => $image) {
-                        $url = asset('storage/' . $image);
-                        $button .= '<img src="' . $url . '" alt="' . $key . '" />';
+                    foreach ($allImages as $image) {
+                        $image = trim($image);
+                        if ($image) {
+                            $url = asset('storage/images/projects/' . $image);
+                            $button .= '<img src="' . $url . '" alt="Project Image" width="100" style="margin:5px;border:1px solid #ddd;" />';
+                        }
                     }
                     $button .= '</div>';
-                } elseif ($allImages[0]) {
-                    $url = asset('storage/' . $allImages[0]);
-                    $button .= '<img src="' . $url . '" />';
-                } else {
-                    $button = '';
                 }
                 return $button;
             })
@@ -53,7 +51,7 @@ class ProjectDataTable extends DataTable
     }
 
     /**
-     * Get the query source of dataTable.
+     * Get the query source of dataTable. 
      */
     public function query(Project $model): QueryBuilder
     {

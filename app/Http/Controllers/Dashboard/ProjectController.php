@@ -72,10 +72,26 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+    
+        // Optionally delete related images from storage
+        if ($project->images) {
+            $images = explode(',', $project->images);
+            foreach ($images as $image) {
+                $imagePath = storage_path('app/public/images/projects/' . trim($image));
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+        }
+    
+        $project->delete();
+    
+        return response()->json(['success' => true, 'message' => 'Project deleted successfully.']);
     }
+    
 
     public function uploadfile(Request $request, string $id)
     {
