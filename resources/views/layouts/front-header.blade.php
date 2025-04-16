@@ -55,12 +55,8 @@
         <div class="flex flex-col h-full p-6">
             <!-- Menu Items -->
             <nav class="flex flex-col space-y-2">
-<<<<<<< HEAD
-                <a href="/admin/projects" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home page</a>
-=======
                 <a href="/" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home
                     page</a>
->>>>>>> d27ef071321036298a2670b7a6b5f4331e1e370a
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Resume</a>
                 <a href="#"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Portfolio</a>
