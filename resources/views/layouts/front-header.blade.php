@@ -23,26 +23,31 @@
                         <path d="M4 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                     </g>
                 </svg>
-                <span class="text-black text-sm font-medium">MENU</span>
+                <span class="text-sm font-medium" style="color: #23c1ff">MENU</span>
             </button>
 
 
             <!-- Sidebar (Initially hidden on mobile) -->
             <div id="sidebar" class="hidden md:flex flex-row space-x-4 text-black">
-                <a href="/" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Home page</a>
+                <a href="/" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Home
+                    page</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Resume</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Portfolio</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Instagram</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Artbook</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Portfolio</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Instagram</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Artbook</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Prints</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Contact</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Contact</a>
             </div>
         </div>
 
         <!-- Title (Right) -->
         <div class="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold">
-        <a href="/" class="text-black">Saud Aslam</a>
-    </div>
+            <a href="/" style="color: #23c1ff">Saud Aslam</a>
+        </div>
     </header>
 
     <!-- Sidebar that appears when Hamburger is clicked -->
@@ -50,13 +55,22 @@
         <div class="flex flex-col h-full p-6">
             <!-- Menu Items -->
             <nav class="flex flex-col space-y-2">
+<<<<<<< HEAD
                 <a href="/admin/projects" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home page</a>
+=======
+                <a href="/" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home
+                    page</a>
+>>>>>>> d27ef071321036298a2670b7a6b5f4331e1e370a
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Resume</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Portfolio</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Instagram</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Artbook</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Portfolio</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Instagram</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Artbook</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Prints</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Contact</a>
+                <a href="#"
+                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Contact</a>
             </nav>
         </div>
     </div>
