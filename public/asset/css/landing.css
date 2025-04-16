@@ -35,10 +35,12 @@ header .text-2xl {
     gap: 0.5rem; /* same as space-x-2 */
 }
 
-.bar1, .bar2, .bar3 {
+.bar1,
+.bar2,
+.bar3 {
     width: 100%;
     height: 4px;
-    background-color:#23c1ff;
+    background-color: #23c1ff;
     transition: 0.3s ease;
 }
 
@@ -63,7 +65,7 @@ header .text-2xl {
     width: 100%;
     height: 100%;
     background-color: #23c1ff;
-    box-shadow:  #23c1ff;
+    box-shadow: #23c1ff;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -85,6 +87,10 @@ header .text-2xl {
 #sidebar a:hover {
     color: #23c1ff;
     background-color: white;
+}
+
+#sidebar-mobile {
+    height: 100vh;
 }
 
 /* Make the sidebar work on mobile */
@@ -177,7 +183,8 @@ header .text-2xl {
     color: #23c1ff;
 }
 
-#hamburger:hover span, #hamburger:hover svg {
+#hamburger:hover span,
+#hamburger:hover svg {
     color: #23c1ff;
 }
 
