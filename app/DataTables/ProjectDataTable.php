@@ -38,7 +38,7 @@ class ProjectDataTable extends DataTable
                     foreach ($allImages as $image) {
                         $image = trim($image);
                         if ($image) {
-                            $url = asset('storage/images/projects/' . $image);
+                            $url = asset('storage/' . $image);
                             $button .= '<img src="' . $url . '" alt="Project Image" width="100" style="margin:5px;border:1px solid #ddd;" />';
                         }
                     }
@@ -51,7 +51,7 @@ class ProjectDataTable extends DataTable
     }
 
     /**
-     * Get the query source of dataTable. 
+     * Get the query source of dataTable.
      */
     public function query(Project $model): QueryBuilder
     {
