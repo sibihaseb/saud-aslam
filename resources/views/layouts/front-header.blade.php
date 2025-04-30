@@ -28,7 +28,7 @@
 
 
             <!-- Sidebar (Initially hidden on mobile) -->
-            <div id="sidebar" class="hidden md:flex flex-row space-x-4 text-black">
+            <div id="sidebar" class="hidden md:flex flex-row space-x-4 text-black justify-center">
                 <a href="/" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Home
                     page</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Resume</a>
@@ -54,7 +54,7 @@
     <div id="sidebar-mobile" class="fixed inset-y-14 left-0 w-64 sidebar-bg text-white z-40  text-left hidden">
         <div class="flex flex-col h-full p-6">
             <!-- Menu Items -->
-            <nav class="flex flex-col space-y-2">
+            <nav class="flex flex-col space-y-2 items-center text-center">
                 <a href="/" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home
                     page</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Resume</a>
@@ -74,23 +74,30 @@
     @yield('content')
 
     <script>
-        var macy = Macy({
-            container: '#js-macy',
-            trueOrder: false,
-            waitForImages: true,
-            columns: 4,
-            margin: 0
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const macyContainer = document.getElementById('js-macy');
 
-        const hamburger = document.getElementById('hamburger');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarMobile = document.getElementById('sidebar-mobile');
+            if (macyContainer) {
+                Macy({
+                    container: '#js-macy',
+                    trueOrder: false,
+                    waitForImages: true,
+                    columns: 4,
+                    margin: 0
+                });
+            }
 
-        hamburger.addEventListener('click', () => {
-            sidebarMobile.classList.toggle('hidden');
-            sidebar.classList.toggle('hidden');
+            const hamburger = document.getElementById('hamburger');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarMobile = document.getElementById('sidebar-mobile');
+
+            hamburger.addEventListener('click', () => {
+                sidebarMobile.classList.toggle('hidden');
+                sidebar.classList.toggle('hidden');
+            });
         });
     </script>
+
 </body>
 
 </html>
