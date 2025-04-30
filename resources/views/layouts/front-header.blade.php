@@ -78,7 +78,7 @@
             container: '#js-macy',
             trueOrder: false,
             waitForImages: true,
-            columns: 6,
+            columns: 4,
             margin: 0
         });
 

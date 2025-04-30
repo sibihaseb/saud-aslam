@@ -31,9 +31,12 @@ class IndexController extends Controller
 
     public function project($id)
     {
-        $project = Project::findOrfail($id);
+        $project = Project::findOrFail($id);
         $allimages = explode(',', $project->images);
 
-        return view('project', compact('allimages', 'project'));
+        $previous = Project::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        $next = Project::where('id', '>', $id)->orderBy('id', 'asc')->first();
+
+        return view('project', compact('allimages', 'project', 'previous', 'next'));
     }
 }
