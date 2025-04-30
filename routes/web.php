@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\IndexController;
 use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\Dashboard\TvAdminUserController;
+use App\Http\Controllers\ContactController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('projectimage', [ProjectController::class, 'deleteImage'])->name('image.delete');
     Route::post('projectfile/{id}', [ProjectController::class, 'uploadfile']);
 });
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
