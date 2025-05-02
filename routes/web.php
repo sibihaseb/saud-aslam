@@ -31,4 +31,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('projectimage', [ProjectController::class, 'deleteImage'])->name('image.delete');
     Route::post('projectfile/{id}', [ProjectController::class, 'uploadfile']);
 });
-Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+// Show contact form (GET)
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+
+// Submit contact form (POST)
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Admin view of submitted contact message
+Route::get('/admin/contact/{id}', [ContactController::class, 'view'])->name('contact.view');
