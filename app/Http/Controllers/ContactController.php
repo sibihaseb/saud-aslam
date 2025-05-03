@@ -12,6 +12,10 @@ class ContactController extends Controller
     {
         return $dataTable->render('pages.contacts-us.index');
     }
+    public function create()
+{
+    return view('pages.contacts-us.contact-us'); // Make sure this view exists: resources/views/contact.blade.php
+}
 
     public function store(Request $request)
     {
