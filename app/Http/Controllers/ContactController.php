@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\DataTables\ContactDataTable;
 
 class ContactController extends Controller
 {
-    public function show()
+    public function index(ContactDataTable $dataTable)
     {
-        return view('pages.contact-us');  // Make sure this Blade file exists
-    }
-    public function view($id)
-    {
-        $contact = Contact::findOrFail($id);
-        return view('admin.contacts.show', compact('contact'));
+        return $dataTable->render('pages.contacts-us.index');
     }
 
     public function store(Request $request)
@@ -35,5 +31,16 @@ class ContactController extends Controller
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'We’ve received your message and will get back to you shortly!');
+    }
+    public function destroy($id)
+    {
+        Contact::destroy($id);
+        return response()->json(['success' => true]);
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        Contact::whereIn('id', $request->ids)->delete();
+        return response()->json(['success' => true]);
     }
 }

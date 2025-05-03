@@ -1,12 +1,18 @@
 <?php
+
 namespace App\DataTables;
 
-use App\Models\Contact;  // Use the correct model
+use App\Models\TemporaryAppCode;
+use App\Models\Contact;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class ContactDataTable extends DataTable
 {
@@ -16,52 +22,78 @@ class ContactDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
-    {
-        ->addColumn('action', function ($data) {
-            $button = '<a href="' . route('contact.view', $data->id) . '" role="button" class="view ri-eye-line text-info m-2"></a>';
-            $button .= '<i id="' . $data->id . '" class="deleteRecord ri-delete-bin-line text-danger m-2" role="button"></i>';
-            return $button;
+{
+    return datatables()
+        ->eloquent($query)
+        ->addColumn('checkbox', function ($data) {
+            return '<input type="checkbox" class="row-select" value="' . $data->id . '">';
         })
+        ->addColumn('action', function ($data) {
+            return '<i class="delete ri-delete-bin-line text-danger m-2" data-id="' . $data->id . '" style="cursor:pointer;"></i>';
+        })
+        ->rawColumns(['checkbox', 'action']); // Important: don't escape HTML
+}
+
     /**
      * Get the query source of dataTable.
      */
     public function query(Contact $model): QueryBuilder
-    {
-        return $model->newQuery();
-    }
+{
+    return $model::select();
+}
 
     /**
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
-    {
-        return $this->builder()
-            ->setTableId('contact-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->orderBy(1)
-            ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            ]);
-    }
-
+{
+    return $this->builder()
+        ->setTableId('contact-table') // Changed ID to something more appropriate
+        ->columns($this->getColumns())
+        ->minifiedAjax()
+        ->parameters([
+            'order' => [[1, 'desc']], // Order by ID (skip checkbox column)
+            'responsive' => true,
+            'autoWidth' => false,
+            'language' => [
+                'search' => 'Filter:',
+                'lengthMenu' => 'Show _MENU_ entries',
+                'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
+                'infoEmpty' => 'No entries found',
+                'zeroRecords' => 'No matching records found',
+            ],
+            'drawCallback' => 'function() {
+                // Rebind events if necessary
+                $("#checkall").on("click", function () {
+                    $(".row-select").prop("checked", this.checked);
+                });
+            }',
+        ])
+        ->dom('Bfrtip') // Enables full control (buttons, filters, etc.)
+        ->buttons([
+            Button::make('excel'),
+            Button::make('csv'),
+            Button::make('print'),
+            Button::make('reset'),
+            Button::make('reload')
+        ]);
+}
     /**
      * Get the dataTable columns definition.
      */
     public function getColumns(): array
     {
         return [
+            Column::computed('checkbox')
+                ->title('<input type="checkbox" id="checkall">')
+                ->exportable(false)
+                ->printable(false)
+                ->width(30)
+                ->addClass('text-center'),
             Column::make('id'),
-            Column::make('email'),
             Column::make('name'),
-            Column::make('message')->width('200px'),  // Adjust this width as needed
-            Column::make('created_at')->title('Submitted At'),
+            Column::make('email'),
+            Column::make('message'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -75,6 +107,6 @@ class ContactDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Contact_' . date('YmdHis');
+        return  'ContactMessages_'  . date('YmdHis');
     }
 }

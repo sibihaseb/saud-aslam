@@ -65,7 +65,7 @@
                 <a href="#"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Artbook</a>
                 <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Prints</a>
-                <a href="{{ route('contact') }}"
+                <a href="{{ route('contact.create') }}"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">
                     Contact Us
                 </a>
