@@ -38,3 +38,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 // Submit contact form (POST)
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+
+//resume
+Route::get('/resume', [IndexController::class, 'resume'])->name('resume');
