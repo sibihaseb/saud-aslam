@@ -39,4 +39,9 @@ class IndexController extends Controller
 
         return view('project', compact('allimages', 'project', 'previous', 'next'));
     }
+
+    public function resume()
+    {
+        return view('resume');
+    }
 }

@@ -5,7 +5,13 @@
     <title>Saud-Aslam</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/macy@2"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{ asset('asset/css/landing.css') }}">
+    <style>
+        .swiper {
+            width: 100%;
+        }
+    </style>
     @yield('styles')
 </head>
 
@@ -31,15 +37,13 @@
             <div id="sidebar" class="hidden md:flex flex-row space-x-4 text-black justify-center">
                 <a href="/" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Home
                     page</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Resume</a>
-                <a href="#"
+                <a href="{{ route('resume') }}"
+                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Resume</a>
+                <a href="/"
                     class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Portfolio</a>
-                <a href="#"
+                <a href="https://www.instagram.com/aslamsaud" target="_blank"
                     class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Instagram</a>
-                <a href="#"
-                    class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Artbook</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Prints</a>
-                <a href="#"
+                <a href="{{ route('contact.create') }}"
                     class="py-2 px-4 text-lg hover:bg-gray-200 rounded transition duration-200">Contact</a>
             </div>
         </div>
@@ -57,14 +61,12 @@
             <nav class="flex flex-col space-y-2 items-center text-center">
                 <a href="/" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Home
                     page</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Resume</a>
-                <a href="#"
+                <a href="{{ route('resume') }}"
+                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Resume</a>
+                <a href="/"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Portfolio</a>
-                <a href="#"
+                <a href="https://www.instagram.com/aslamsaud"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Instagram</a>
-                <a href="#"
-                    class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Artbook</a>
-                <a href="#" class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">Prints</a>
                 <a href="{{ route('contact.create') }}"
                     class="py-2 px-4 text-lg hover:bg-gray-800 rounded transition duration-200">
                     Contact Us
@@ -74,7 +76,7 @@
     </div>
 
     @yield('content')
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const macyContainer = document.getElementById('js-macy');
@@ -97,6 +99,28 @@
                 sidebarMobile.classList.toggle('hidden');
                 sidebar.classList.toggle('hidden');
             });
+        });
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            autoHeight: true,
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
         });
     </script>
 

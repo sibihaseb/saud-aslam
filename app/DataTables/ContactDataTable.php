@@ -22,62 +22,62 @@ class ContactDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
-{
-    return datatables()
-        ->eloquent($query)
-        ->addColumn('checkbox', function ($data) {
-            return '<input type="checkbox" class="row-select" value="' . $data->id . '">';
-        })
-        ->addColumn('action', function ($data) {
-            return '<i class="delete ri-delete-bin-line text-danger m-2" data-id="' . $data->id . '" style="cursor:pointer;"></i>';
-        })
-        ->rawColumns(['checkbox', 'action']); // Important: don't escape HTML
-}
+    {
+        return datatables()
+            ->eloquent($query)
+            ->addColumn('checkbox', function ($data) {
+                return '<input type="checkbox" class="row-select" value="' . $data->id . '">';
+            })
+            ->addColumn('action', function ($data) {
+                return '<i class="delete ri-delete-bin-line text-danger m-2" data-id="' . $data->id . '" style="cursor:pointer;"></i>';
+            })
+            ->rawColumns(['checkbox', 'action']); // Important: don't escape HTML
+    }
 
     /**
      * Get the query source of dataTable.
      */
     public function query(Contact $model): QueryBuilder
-{
-    return $model::select();
-}
+    {
+        return $model::select();
+    }
 
     /**
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder
-{
-    return $this->builder()
-        ->setTableId('contact-table') // Changed ID to something more appropriate
-        ->columns($this->getColumns())
-        ->minifiedAjax()
-        ->parameters([
-            'order' => [[1, 'desc']], // Order by ID (skip checkbox column)
-            'responsive' => true,
-            'autoWidth' => false,
-            'language' => [
-                'search' => 'Filter:',
-                'lengthMenu' => 'Show _MENU_ entries',
-                'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
-                'infoEmpty' => 'No entries found',
-                'zeroRecords' => 'No matching records found',
-            ],
-            'drawCallback' => 'function() {
+    {
+        return $this->builder()
+            ->setTableId('contact-table') // Changed ID to something more appropriate
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->parameters([
+                'order' => [[1, 'desc']], // Order by ID (skip checkbox column)
+                'responsive' => true,
+                'autoWidth' => false,
+                'language' => [
+                    'search' => 'Filter:',
+                    'lengthMenu' => 'Show _MENU_ entries',
+                    'info' => 'Showing _START_ to _END_ of _TOTAL_ entries',
+                    'infoEmpty' => 'No entries found',
+                    'zeroRecords' => 'No matching records found',
+                ],
+                'drawCallback' => 'function() {
                 // Rebind events if necessary
                 $("#checkall").on("click", function () {
                     $(".row-select").prop("checked", this.checked);
                 });
             }',
-        ])
-        ->dom('Bfrtip') // Enables full control (buttons, filters, etc.)
-        ->buttons([
-            Button::make('excel'),
-            Button::make('csv'),
-            Button::make('print'),
-            Button::make('reset'),
-            Button::make('reload')
-        ]);
-}
+            ])
+            ->dom('Bfrtip') // Enables full control (buttons, filters, etc.)
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
+    }
     /**
      * Get the dataTable columns definition.
      */
